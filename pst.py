@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 WHITESPACE = [' ', '\f', '\n', '\r', '\t', '\v']
 ESCAPE = {'a': 7, 'b': 8, 'e': 27, 'f': 12, 'n': 10, 'r': 13, 't': 9, 'v': 11}
 DIGITS = range(ord('0'), ord('9'))
@@ -110,17 +108,3 @@ def decode(s):
 				insert(stack, word)
 		key = None
 	return stack[0]
-
-if __name__ == '__main__':
-	import sys
-	import json
-	def binary_s(x):
-		return u''.join([unichr(ord(c)) if ord(c) >= 128 else unicode(c) for c in x])
-	class Encoder(json.JSONEncoder):
-		def default(self, obj):
-			if isinstance(obj, list):
-				return [binary_s(x) for x in obj]
-			elif isinstance(obj, str):
-				return binary_s(x)
-			return json.JSONEncoder.encode(self, obj)
-	print(json.dumps(decode(' '.join(sys.argv[1:])), cls=Encoder, ensure_ascii=False))
