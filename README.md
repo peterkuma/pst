@@ -226,7 +226,19 @@ Whitespace is a sequence of whitespace characters.
 A word is a sequence of non-whitespace characters, and whitespace
 characters if they are inside a quoted part. A quoted part of a word is a part
 of a word enclosed in double quotes (`"`). A character inside a word preceded by
-backslash (`\`) is escaped and is treated literaly (loses its special meaning).
+backslash (`\`) is escaped, and is treated literaly (loses its special meaning),
+unless it is one of the ANSI C quotes, in which case it is translated to the
+corresponding 8-bit ASCII character:
+
+- `\a`: alert/bell (7)
+- `\b`: backspace (8)
+- `\e`: escape (27)
+- `\f`: form feed (12)
+- `\n`: newline (10)
+- `\r`: carriage return (13)
+- `\t`: horizontal tab (9)
+- `\v`: vertical tab (11)
+- `\nnn`: octal value *nnn*.
 
 ### Literal
 
