@@ -9,9 +9,10 @@ missing values (none), arrays, objects (key-value pairs),
 single-character flags, and string flags.
 Relative to JSON, PST is simpler, while supporting many of its features.
 PST aims to be a unified human and machine-readable format for command
-line argument passing and standard input/output formatting which is easier
-to read and write than JSON. PST is smilar to YAML, but simpler, supporing
-one-line expressions, and is more consistent with conventions on GNU systems.
+line argument passing, standard input/output and config file formatting
+which is easier to read and write than JSON. PST is smilar to YAML, but simpler,
+supporing one-line expressions, and is more consistent with conventions on
+GNU systems.
 
 Examples
 --------
