@@ -117,7 +117,7 @@ To install in system directories:
 python setup.py install
 ```
 
-To install in user directories:
+To install in user directories
 (make sure `~/.local/bin` is in the `PATH` environmental variable):
 
 ```sh
