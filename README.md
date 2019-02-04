@@ -108,10 +108,26 @@ pst.decode(s)
 
 where `<pst>` is a PST text (binary string). Returns a list.
 
+Installation
+------------
+
+To install in system directory:
+
+```sh
+python setup.py install
+```
+
+To install in user directory
+(make sure `~/.local/bin` is in the `PATH` environmental variable):
+
+```sh
+python setup.py install --user
+```
+
 Shell compatibility
 -------------------
 
-```
+```sh
 mkdir example
 cd example
 mkdir a b
