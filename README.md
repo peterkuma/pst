@@ -1,7 +1,7 @@
 Plain Structured Text (PST)
 ===========================
 
-**Development status:** Beta
+**Development status:** beta
 
 PST is a format for structured text modelled after Bourne shell expressions
 and JSON. PST supports strings, numbers (integers and floating-point), boolean,
@@ -16,99 +16,70 @@ one-line expressions, and is more consistent with conventions on GNU systems.
 Examples
 --------
 
-Empty
 ```
+# Empty
 PST: 
 JSON: []
-```
 
-Single string
-```
+# Single string
 PST: a
 JSON: ["a"]
-```
 
-Quoted string
-```
+# Quoted string
 PST: "a b"
 JSON: ["a b"]
-```
 
-Partially-quoted string
-```
+# Partially-quoted string
 PST: a"b c"
 JSON: ["ab c"]
-```
 
-Two strings
-```
+# Two strings
 PST: a b
 JSON: ["a", "b"]
-```
 
-Two string separated by a newline
-```
+# Two strings separated by a newline
 PST:
 a
 b
 JSON: ["a", "b"]
-```
 
-Key-value pair
-```
+# Key-value pair
 PST: a: 1
 JSON: [{"a": 1}]
-```
 
-Sequence of key-value pairs
-```
+# Sequence of key-value pairs
 PST: a: 1 b: 2
 JSON: [{"a": 1, "b": 2}]
-```
 
-Sequence of key-value pairs and a string
-```
+# Sequence of key-value pairs and a string
 PST: a: 1 b: 2 c
 JSON: [{"a": 1, "b": 2}, "c"]
-```
 
-Empty array
-```
+# Empty array
 PST: { }
 JSON: [[]]
-```
 
-String and an empty array
-```
+# String and an empty array
 PST: a { }
 JSON: ["a", []]
-```
-String and an array
-```
+
+# String and an array
 PST: a { b c }
 JSON: ["a", ["b", "c"]]
-```
 
-An array as value followed by a string
-```
+# An array as value followed by a string
 PST: a: { b c } d
 JSON: [{"a": ["b", "c"]}, "d"]
-```
 
-Literals
-```
+# Literals
 PST: true false none
 JSON: [true, false, null]
-```
 
-Single-character flags
-```
+# Single-character flags
 PST: -ab
 JSON [{"a": true, "b": true}]
-```
 
-String flag
-```
+# String flag
 PST: --ab
 JSON: [{"ab": true}]
 ```
