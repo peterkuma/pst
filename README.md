@@ -1,7 +1,7 @@
 Plain Structured Text (PST)
 ===========================
 
-**Development status:** beta
+**Development status:** Beta
 
 PST is a format for structured text modelled after Bourne shell expressions
 and JSON. PST supports strings, numbers (integers and floating-point), boolean,
@@ -96,7 +96,7 @@ Command line:
 pst <pst>...
 ```
 
-where <pst> are PST words. Prints JSON on the standard output.
+where `<pst>` are PST words. Prints JSON on the standard output.
 
 Python:
 
@@ -106,7 +106,7 @@ s = "<pst>"
 pst.decode(s)
 ```
 
-where <pst> is a PST text (binary string). Returns a list.
+where `<pst>` is a PST text (binary string). Returns a list.
 
 Shell compatibility
 -------------------
@@ -115,7 +115,8 @@ Shell compatibility
 mkdir example
 cd example
 mkdir a b
-pst * # ["a", "b"]
+pst *
+["a", "b"]
 touch a/1 a/2 b/3 b/4
 pst a: { a/* } b: { b/* }
 [{"a": ["a/1", "a/2"], "b": ["b/3", "b/4"]}]
@@ -128,8 +129,8 @@ pst a: { $(ls a/* --quoting-style c) } b: { $(ls b/* --quoting-style c) }
 Complex example
 ---------------
 
-This example is adapted from Wikipedia and licensed under the
-[CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License).
+This example is adapted from Wikipedia and is licensed under the
+[CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
 license.
 
 PST:
@@ -145,11 +146,11 @@ address: {
 	state: NY
 	postalCode: 10021-3100
 }
-phoneNumbers: [
+phoneNumbers: {
 	{ type: home number: "212 555-1234" }
 	{ type: office number: "646 555-4567" }
 	{ type: mobile number: "123 456-7890" }
-]
+}
 children: { }
 spouse: none
 ```
@@ -205,7 +206,7 @@ Whitespace is a sequence of whitespace characters.
 
 ### Word
 
-Word is a sequence of non-whitespace characters, and whitespace
+A word is a sequence of non-whitespace characters, and whitespace
 characters if they are inside a quoted part. A quoted part of a word is a part
 of a word enclosed in double quotes (`"`). A character inside a word preceded by
 backslash (`\`) is escaped and is treated literaly (loses its special meaning).
