@@ -111,13 +111,13 @@ where `<pst>` is a PST text (binary string). Returns a list.
 Installation
 ------------
 
-To install in system directory:
+To install in system directories:
 
 ```sh
 python setup.py install
 ```
 
-To install in user directory
+To install in user directories:
 (make sure `~/.local/bin` is in the `PATH` environmental variable):
 
 ```sh
