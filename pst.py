@@ -1,6 +1,7 @@
+#!/usr/bin/env python
+
 WHITESPACE = [' ', '\f', '\n', '\r', '\t', '\v']
 ESCAPE = {'a': 7, 'b': 8, 'e': 27, 'f': 12, 'n': 10, 'r': 13, 't': 9, 'v': 11}
-DIGITS = range(ord('0'), ord('9'))
 
 def readword(s, n):
 	word = []
@@ -13,7 +14,6 @@ def readword(s, n):
 	if i == len(s):
 		raise EOFError()
 	escape = 0
-	hex = False
 	eos = False
 	quote = False
 	while i < len(s) and not eos:
@@ -23,7 +23,7 @@ def readword(s, n):
 				word += chr(ESCAPE[c])
 				q += '1'
 				escape = 0
-			elif ord(c) in DIGITS:
+			elif ord(c) >= ord('0') and ord(c) <= ord('9'):
 				word += chr(ord(c) - ord('0'))
 				q += '1'
 				escape = 2
@@ -32,7 +32,7 @@ def readword(s, n):
 				q += '1'
 				escape = 0
 		elif escape > 1:
-			if ord(c) in DIGITS:
+			if ord(c) >= ord('0') and ord(c) <= ord('9'):
 				x = 8*ord(word[-1]) + ord(c) - ord('0')
 				if x < 256:
 					word[-1] = chr(x)
@@ -108,3 +108,9 @@ def decode(s):
 				insert(stack, word)
 		key = None
 	return stack[0]
+
+if __name__ == '__main__':
+	import sys
+	import json
+	x = decode(' '.join(sys.argv[1:]))
+	print(json.dumps(x, ensure_ascii=False))
