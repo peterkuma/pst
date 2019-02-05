@@ -238,7 +238,7 @@ corresponding 8-bit ASCII character:
 - `\r`: carriage return (13)
 - `\t`: horizontal tab (9)
 - `\v`: vertical tab (11)
-- `\nnn`: octal value *nnn*.
+- `\nnn`: octal value *nnn*, one to three digits
 
 ### Literal
 
