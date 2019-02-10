@@ -4,5 +4,10 @@ import pst
 import sys
 import json
 
-x = pst.decode(' '.join(sys.argv[1:]))
-print(json.dumps(x, ensure_ascii=False))
+if sys.version_info[0] >= 3:
+	import os
+	s = b' '.join([os.fsencode(y) for y in sys.argv[1:]])
+else:
+	s = b' '.join(sys.argv[1:])
+
+print(json.dumps(pst.decode(s, True), ensure_ascii=False))
