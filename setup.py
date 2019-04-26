@@ -11,11 +11,10 @@ setup(
 	py_modules=['pst'],
 	license="Public Domain",
 	classifiers=[
-		'Development Status :: 4 - Beta',
 		'Environment :: Console',
 		'Operating System :: OS Independent',
 		'Programming Language :: Python :: 2.7',
-		'Programming Language :: Python :: 2 :: Only',
+		'Programming Language :: Python :: 3',
 		'Topic :: Text Processing :: Markup',
 		'Topic :: Utilities',
 	]
