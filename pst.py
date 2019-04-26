@@ -5,6 +5,7 @@ import sys
 WHITESPACE = [b' ', b'\f', b'\n', b'\r', b'\t', b'\v']
 WHITESPACE_ORD = [ord(x) for x in WHITESPACE]
 ESCAPE = {b'a': 7, b'b': 8, b'e': 27, b'f': 12, b'n': 10, b'r': 13, b't': 9, b'v': 11}
+ESCAPE_ORD = {ord(k): v for k, v in ESCAPE.items()}
 
 def b2u(s):
 	if sys.version_info[0] >= 3:
@@ -31,8 +32,8 @@ def readword(s, n, whitespace=None):
 	while i < len(s) and not eos:
 		c = s[i]
 		if escape == 1:
-			if c in ESCAPE:
-				word += [ESCAPE[c]]
+			if c in ESCAPE_ORD:
+				word += [ESCAPE_ORD[c]]
 				q += b'1'
 				escape = 0
 			elif c >= ord(b'0') and c <= ord(b'9'):
