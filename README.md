@@ -3,16 +3,18 @@ Plain Structured Text (PST)
 
 **Development status:** Beta
 
-PST is a format for structured text modelled after Bourne shell expressions
-and JSON. PST supports strings, numbers (integers and floating-point), boolean,
-missing values (none), arrays, objects (key-value pairs),
-single-character flags, and string flags.
-Relative to JSON, PST is simpler, while supporting many of its features.
-PST aims to be a unified human and machine-readable format for command
-line argument passing, standard input/output and config file formatting
-which is easier to read and write than JSON. PST is smilar to YAML, but simpler,
-supporing one-line expressions, and is more consistent with conventions on
-GNU systems.
+PST is a format for encoding structured text similar to Bourne shell formatting
+and JSON. PST supports strings, numbers (integers and floating-point), bool,
+missing values (`none`), arrays, objects (key-value pairs),
+single-character flags (`-x`), and string flags (`--abc`).
+Relative to JSON, PST is simpler, while supporting much of its features.
+PST aims to be human and machine readable, and suitable for command
+line argument formatting, standard input/output and configuration file
+formatting. PST is smilar to YAML, but supporing one-line expressions
+(indentation does not matter).
+
+Implementations of PST as a command-line program and a Python 2.7/3 function
+are available.
 
 Examples
 --------
@@ -88,29 +90,33 @@ JSON: [{"ab": true}]
 Usage
 -----
 
-Implementations of PST as a command-line program and a Python function
-are available.
-
-Command line:
+### Command line
 
 ```sh
 pst <pst>...
 ```
 
-where `<pst>` are PST words. Prints JSON on the standard output.
+where `<pst>` are PST-formatted words.
 
-Python:
+Prints JSON on the standard output.
+
+### Python
 
 ```python
 import pst
-s = "<pst>"
-pst.decode(s)
+pst.decode(<pst>, as_unicode=<as_unicode>)
 ```
 
-where `<pst>` is a PST text (binary string). Returns a list.
+where `<pst>` is PST-formatted text (binary string) or a list of
+PST-formatted text, and `<as_unicode>` (bool) indicates
+whether to convert binary strings in output to unicode.
+
+Returns a list.
 
 Installation
 ------------
+
+The installation requires Python 2.7 or Python 3.
 
 To install in system directories:
 
