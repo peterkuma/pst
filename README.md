@@ -1,8 +1,6 @@
 Plain Structured Text (PST)
 ===========================
 
-**Development status:** Beta
-
 PST is a format for encoding structured text similar to Bourne shell formatting
 and JSON. PST supports strings, numbers (integers and floating-point), bool,
 missing values (`none`), arrays, objects (key-value pairs),
@@ -15,6 +13,68 @@ formatting. PST is smilar to YAML, but supporing one-line expressions
 
 Implementations of PST as a command-line program and a Python 2.7/3 function
 are available.
+
+Complex example
+---------------
+
+This example is adapted from Wikipedia and is licensed under the
+[CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
+license.
+
+PST:
+
+```
+firstName: John
+lastName: Smith
+isAlive: true
+age: 27
+address: {
+	streetAddress: "21 2nd Street"
+	city: "New York"
+	state: NY
+	postalCode: 10021-3100
+}
+phoneNumbers: {
+	{ type: home number: "212 555-1234" }
+	{ type: office number: "646 555-4567" }
+	{ type: mobile number: "123 456-7890" }
+}
+children: { }
+spouse: none
+```
+
+JSON:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "isAlive": true,
+  "age": 27,
+  "address": [{
+    "streetAddress": "21 2nd Street",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10021-3100"
+  }],
+  "phoneNumbers": [
+    [{
+      "type": "home",
+      "number": "212 555-1234"
+    }],
+    [{
+      "type": "office",
+      "number": "646 555-4567"
+    }],
+    [{
+      "type": "mobile",
+      "number": "123 456-7890"
+    }]
+  ],
+  "children": [],
+  "spouse": null
+}
+```
 
 Examples
 --------
@@ -147,68 +207,6 @@ pst a: { a/* } b: { b/* }
 # Better
 pst a: { $(ls a/* --quoting-style c) } b: { $(ls b/* --quoting-style c) }
 [{"a": ["1", "2"], "b": ["3", "4"]}]
-```
-
-Complex example
----------------
-
-This example is adapted from Wikipedia and is licensed under the
-[CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License)
-license.
-
-PST:
-
-```
-firstName: John
-lastName: Smith
-isAlive: true
-age: 27
-address: {
-	streetAddress: "21 2nd Street"
-	city: "New York"
-	state: NY
-	postalCode: 10021-3100
-}
-phoneNumbers: {
-	{ type: home number: "212 555-1234" }
-	{ type: office number: "646 555-4567" }
-	{ type: mobile number: "123 456-7890" }
-}
-children: { }
-spouse: none
-```
-
-JSON:
-
-```json
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "isAlive": true,
-  "age": 27,
-  "address": [{
-    "streetAddress": "21 2nd Street",
-    "city": "New York",
-    "state": "NY",
-    "postalCode": "10021-3100"
-  }],
-  "phoneNumbers": [
-    [{
-      "type": "home",
-      "number": "212 555-1234"
-    }],
-    [{
-      "type": "office",
-      "number": "646 555-4567"
-    }],
-    [{
-      "type": "mobile",
-      "number": "123 456-7890"
-    }]
-  ],
-  "children": [],
-  "spouse": null
-}
 ```
 
 Syntax
