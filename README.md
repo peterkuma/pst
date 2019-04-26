@@ -46,7 +46,7 @@ spouse: none
 JSON:
 
 ```json
-{
+[{
   "firstName": "John",
   "lastName": "Smith",
   "isAlive": true,
@@ -73,7 +73,7 @@ JSON:
   ],
   "children": [],
   "spouse": null
-}
+}]
 ```
 
 Examples
