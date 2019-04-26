@@ -2,8 +2,8 @@
 
 import sys
 
-WHITESPACE_B = [b' ', b'\f', b'\n', b'\r', b'\t', b'\v']
-WHITESPACE = [ord(x) for x in WHITESPACE_B]
+WHITESPACE = [b' ', b'\f', b'\n', b'\r', b'\t', b'\v']
+WHITESPACE_ORD = [ord(x) for x in WHITESPACE]
 ESCAPE = {b'a': 7, b'b': 8, b'e': 27, b'f': 12, b'n': 10, b'r': 13, b't': 9, b'v': 11}
 
 def b2u(s):
@@ -12,12 +12,15 @@ def b2u(s):
 	else:
 		return u''.join([unichr(ord(x)) for x in s])
 
-def readword(s, n):
+def readword(s, n, whitespace=None):
+	whitespace = WHITESPACE_ORD \
+		if whitespace is None \
+		else [ord(x) for x in whitespace]
 	word = []
 	q = b''
 	i = n
 	while i < len(s):
-		if s[i] not in WHITESPACE:
+		if s[i] not in whitespace:
 			break
 		i += 1
 	if i == len(s):
@@ -57,7 +60,7 @@ def readword(s, n):
 			quote = not quote
 		elif c == ord(b'\\'):
 			escape = 1
-		elif c in WHITESPACE and not quote:
+		elif c in whitespace and not quote:
 			break
 		else:
 			word += [c]
@@ -85,17 +88,25 @@ def insert(stack, x):
 
 def decode(s, as_unicode=False):
 	if as_unicode:
-		u = lambda s: b2u(s) if type(s) is bytes else s
+		u = lambda x: b2u(x) if type(x) is bytes else x
 	else:
-		u = lambda s: s
-	s1 = bytearray(s)
+		u = lambda x: x
+	sb = [bytearray(x) for x in s] \
+		if type(s) is list \
+		else bytearray(s)
 	stack = [[]]
 	n = 0
 	key = None
 	while True:
-		try: word, q, m = readword(s1, n)
-		except EOFError: break
-		n = m
+		if type(sb) is list:
+			if n >= len(sb):
+				break
+			word, q, m = readword(sb[n], 0, whitespace=[])
+			n += 1
+		else:
+			try: word, q, m = readword(sb, n)
+			except EOFError: break
+			n = m
 		if type(word) is bytes and word.endswith(b':') and q.endswith(b'0'):
 			key = word[:-1]
 			x = {u(key): None}
@@ -130,7 +141,7 @@ if __name__ == '__main__':
 	import json
 	if sys.version_info[0] >= 3:
 		import os
-		s = b' '.join([os.fsencode(y) for y in sys.argv[1:]])
+		args = [os.fsencode(y) for y in sys.argv[1:]]
 	else:
-		s = b' '.join(sys.argv[1:])
-	print(json.dumps(decode(s, True), ensure_ascii=False))
+		args = sys.argv[1:]
+	print(json.dumps(decode(args, True), ensure_ascii=False))
