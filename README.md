@@ -9,7 +9,8 @@ Relative to JSON, PST is simpler, while supporting much of its features.
 PST aims to be human and machine readable, and suitable for command
 line argument formatting, standard input/output and configuration file
 formatting. PST is smilar to YAML, but supporing one-line expressions
-(indentation does not matter).
+(indentation does not matter). PST is composed of self-similar nested
+structures, each of which is an array.
 
 Implementations of PST as a command-line program and a Python 2.7/3 function
 are available.
