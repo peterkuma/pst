@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import sys
 
 WHITESPACE = [b' ', b'\f', b'\n', b'\r', b'\t', b'\v']
@@ -138,10 +139,18 @@ def decode(s, as_unicode=False):
 		key = None
 	return stack[0]
 
+def decode_argv(argv, **kwargs):
+	if sys.version_info[0] >= 3:
+		a = decode([os.fsencode(y) for y in argv], **kwargs)
+	else:
+		a = decode(argv, **kwargs)
+	args = [x for x in a if type(x) is not dict]
+	opts = {k: v for x in a if type(x) is dict for k, v in x.items()}
+	return args, opts
+
 if __name__ == '__main__':
 	import json
 	if sys.version_info[0] >= 3:
-		import os
 		args = [os.fsencode(y) for y in sys.argv[1:]]
 	else:
 		args = sys.argv[1:]

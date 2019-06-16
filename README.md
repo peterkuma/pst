@@ -165,14 +165,28 @@ Prints JSON on the standard output.
 
 ```python
 import pst
-pst.decode(<pst>, as_unicode=<as_unicode>)
 ```
 
-where `<pst>` is PST-formatted text (binary string) or a list of
-PST-formatted text, and `<as_unicode>` (bool) indicates
-whether to convert binary strings in output to unicode.
+#### decode
 
-Returns a list.
+```python
+pst.decode(s, as_unicode=False)
+```
+
+Decode PST. `s` is PST (binary string) or a list
+of PST, and `as_unicode` (bool) indicates
+whether to convert binary strings in output to unicode. Returns a list.
+
+#### decode_argv
+
+```python
+pst.decode_argv(argv, **kwargs)
+```
+
+Decode PST and split the resulting list into positional and named arguments.
+`argv` is a list of PST, and `kwargs` are keyword arguments passed to
+`pst.decode`. Returns a tuple (`args`, `opts`), where `args` are positional
+arguments and `opts` are named arguments.
 
 Installation
 ------------
