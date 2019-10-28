@@ -179,9 +179,16 @@ def decode_argv(argv, **kwargs):
 		a = decode([os.fsencode(y) for y in argv], **kwargs)
 	else:
 		a = decode(argv, **kwargs)
-	args = [x for x in a if type(x) is not dict]
-	opts = {k: v for x in a if type(x) is dict for k, v in x.items()}
-	return args, opts
+	if type(a) is list:
+		return [x for x in a if type(x) is not dict], \
+			{k: v for x in a if type(x) is dict \
+				for k, v in x.items()}
+	elif type(a) is dict:
+		return [], a
+	elif a is None:
+		return [], {}
+	else:
+		return [a], {}
 
 if __name__ == '__main__':
 	import json
