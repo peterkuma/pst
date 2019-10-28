@@ -4,7 +4,7 @@ setup(
 	name='pst-format',
 	version='1.1.0',
 	packages=find_packages(),
-	scripts=['pst'],
+	scripts=['pst', 'pstf'],
 	description='Plain Structured Text - data format suitable for I/O & command line',
 	author='Peter Kuma',
 	author_email='peter.kuma@fastmail.com',
