@@ -182,7 +182,7 @@ pst.decode(s, as_unicode=False)
 
 Decode PST. `s` is PST (binary string) or a list
 of PST, and `as_unicode` (bool) indicates
-whether to convert binary strings in output to unicode. Returns a list.
+whether to convert binary strings in output to unicode.
 
 #### decode_argv
 
@@ -329,14 +329,14 @@ Words inside the brackets which are not key-value pairs are ignored.
 ### Single-character flag
 
 Single-character flags are characters in a word beginning with an non-quoted
-dash (`-`). Single-character flag is interpreted as an implicit object {c: True},
-where c is the character.
+dash (`-`). Single-character flag is interpreted as an implicit object
+`{c: True}`, where `c` is the character.
 
 ### String flag
 
 A string flag is a string in a word beginning with an non-quoted double-dash
-(`--`). String flag is interpreted as an implicit object {s: True}, where s is
-the string.
+(`--`). String flag is interpreted as an implicit object `{s: True}`, where `s`
+is the string.
 
 License
 -------
