@@ -203,15 +203,14 @@ The installation requires Python 2.7 or Python 3.
 To install in system directories:
 
 ```sh
-python setup.py install
+pip3 install pst-format
+# or from the archive directory:
+python3 setup.py install
 ```
 
-To install in user directories
-(make sure `~/.local/bin` is in the `PATH` environmental variable):
-
-```sh
-python setup.py install --user
-```
+Append `--user` to install in user directories
+(make sure `~/.local/bin` is in the `PATH` environmental variable).
+Replace `pip3` with `pip` or `python3` with `python` to install with Python 2.
 
 Shell compatibility
 -------------------
@@ -337,6 +336,17 @@ dash (`-`). Single-character flag is interpreted as an implicit object
 A string flag is a string in a word beginning with an non-quoted double-dash
 (`--`). String flag is interpreted as an implicit object `{s: True}`, where `s`
 is the string.
+
+Changelog
+---------
+
+### 1.0.0 (2019-10-28)
+
+- Support for explicit objects.
+
+### 0.1.0 (2019-02-05)
+
+Initial release.
 
 License
 -------

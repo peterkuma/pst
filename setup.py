@@ -1,16 +1,18 @@
 from setuptools import setup, find_packages
 
 setup(
-	name='pst',
-	version='0.1.0',
+	name='pst-format',
+	version='1.0.0',
 	packages=find_packages(),
 	scripts=['pst'],
-	description='Plain Structured Text',
+	description='Plain Structured Text - data format suitable for I/O & command line',
 	author='Peter Kuma',
 	author_email='peter.kuma@fastmail.com',
 	py_modules=['pst'],
 	license="Public Domain",
+	url='https://github.com/peterkuma/pst',
 	classifiers=[
+		'Development Status :: 5 - Production/Stable',
 		'Environment :: Console',
 		'Operating System :: OS Independent',
 		'Programming Language :: Python :: 2.7',
