@@ -84,7 +84,7 @@ such as strings, integers, floating-point numbers or arbitrarily nested complex
 types such as arrays (list) and objects (dict).
 
 Strings do not need to be
-quoted unless they contain whitespace, special characters or could be
+quoted unless they contain whitespace, special characters which could be
 interpreted as a number or bracket. Words composed of digits are implicitly
 converted to numbers unless quoted.
 
@@ -99,9 +99,9 @@ Any amount of whitespace or indentation is equivalent to a single space.
 Separation between words, brackets, special characters such as `:` in the key of
 a key-value pair matters.
 
-8-bit ASCII-compatible character encoding assumed. Strings can contain any
+8-bit ASCII-compatible character encoding is assumed. Strings can contain any
 binary data by using escape characters. Conversion from UTF-8 character
-encoding to Unicode is supported by the Python API.
+encoding to Unicode is supported by the Python PST API.
 
 PST is designed to be compatible with JSON, while also being suitable for
 command-line argument passing. For example, special characters which would
