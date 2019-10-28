@@ -9,8 +9,7 @@ Relative to JSON, PST is simpler, while supporting much of its features.
 PST aims to be human and machine readable, and suitable for command
 line argument formatting, standard input/output and configuration file
 formatting. PST is smilar to YAML, but supporing one-line expressions
-(indentation does not matter). PST is composed of self-similar nested
-structures, each of which is an array.
+(indentation does not matter).
 
 Implementations of PST as a command-line program and a Python 2.7/3 function
 are available.
@@ -29,17 +28,17 @@ firstName: John
 lastName: Smith
 isAlive: true
 age: 27
-address: {
+address: {{
 	streetAddress: "21 2nd Street"
 	city: "New York"
 	state: NY
 	postalCode: 10021-3100
-}
-phoneNumbers: {
-	{ type: home number: "212 555-1234" }
-	{ type: office number: "646 555-4567" }
-	{ type: mobile number: "123 456-7890" }
-}
+}}
+phoneNumbers: {{
+	{{ type: home number: "212 555-1234" }}
+	{{ type: office number: "646 555-4567" }}
+	{{ type: mobile number: "123 456-7890" }}
+}}
 children: { }
 spouse: none
 ```
@@ -47,34 +46,34 @@ spouse: none
 JSON:
 
 ```json
-[{
+{
   "firstName": "John",
   "lastName": "Smith",
   "isAlive": true,
   "age": 27,
-  "address": [{
+  "address": {
     "streetAddress": "21 2nd Street",
     "city": "New York",
     "state": "NY",
     "postalCode": "10021-3100"
-  }],
+  },
   "phoneNumbers": [
-    [{
+    {
       "type": "home",
       "number": "212 555-1234"
-    }],
-    [{
+    },
+    {
       "type": "office",
       "number": "646 555-4567"
-    }],
-    [{
+    },
+    {
       "type": "mobile",
       "number": "123 456-7890"
-    }]
+    }
   ],
   "children": [],
   "spouse": null
-}]
+}
 ```
 
 Examples
@@ -83,7 +82,7 @@ Examples
 ```
 # Empty
 PST: 
-JSON: []
+JSON: null
 
 # Single string
 PST: a
@@ -91,11 +90,11 @@ JSON: ["a"]
 
 # Quoted string
 PST: "a b"
-JSON: ["a b"]
+JSON: "a b"
 
 # Partially-quoted string
 PST: a"b c"
-JSON: ["ab c"]
+JSON: "ab c"
 
 # Two strings
 PST: a b
@@ -109,11 +108,11 @@ JSON: ["a", "b"]
 
 # Key-value pair
 PST: a: 1
-JSON: [{"a": 1}]
+JSON: {"a": 1}
 
 # Sequence of key-value pairs
 PST: a: 1 b: 2
-JSON: [{"a": 1, "b": 2}]
+JSON: {"a": 1, "b": 2}
 
 # Sequence of key-value pairs and a string
 PST: a: 1 b: 2 c
@@ -121,11 +120,19 @@ JSON: [{"a": 1, "b": 2}, "c"]
 
 # Empty array
 PST: { }
-JSON: [[]]
+JSON: []
 
 # String and an empty array
 PST: a { }
 JSON: ["a", []]
+
+# Empty object
+PST: {{ }}
+JSON: {}
+
+# String and an empty object
+PST: a {{ }}
+JSON: ["a", {}]
 
 # String and an array
 PST: a { b c }
@@ -141,11 +148,11 @@ JSON: [true, false, null]
 
 # Single-character flags
 PST: -ab
-JSON [{"a": true, "b": true}]
+JSON {"a": true, "b": true}
 
 # String flag
 PST: --ab
-JSON: [{"ab": true}]
+JSON: {"ab": true}
 ```
 
 Usage
@@ -277,21 +284,28 @@ non-quoted dot (`.`), beginning with a digit.
 
 A number is an integer or a floating-point number.
 
-### Brackets
+### Bracket
 
-A bracket is a word which is a non-quoted opening or closing bracket (`{`, `}`).
+A bracket is a word which is a non-quoted opening or closing curly
+bracket (`{`, `}`).
+
+### Double bracket
+
+A double bracket is a word which is a non-quoted opening or closing double
+curly bracket (`{{`, `}}`).
 
 ### Key
 
-A word ending with a non-quoted colon (:) is a key.
+A word ending with a non-quoted colon (`:`) is a key.
 
 ### String
 
-A String is a word which is not a key, literal, number, or a bracket.
+A string is a word which is not a key, literal, number, bracket,
+double bracket, single-character flag or a string flag.
 
 ### Array
 
-An array is a PST enclosed in brackets ("{", "}").
+An array is a PST enclosed in square brackets.
 
 ### Value
 
@@ -301,20 +315,28 @@ A value is a string, literal, number, or array following a key.
 
 A key followed by a value is a key-value pair.
 
-### Object
+### Implicit object
 
-An object is a sequence of key-value pairs.
+An implicit object is a sequence of one or more key-value pairs not enclosed
+in brackets. An implicit object cannot be the value in a key-value pair.
+
+### Explicit object
+
+An explicit object is a sequence of zero or more key-value pairs enclosed
+in double brackets. An explicit object can be the value in a key-value pair.
+Words inside the brackets which are not key-value pairs are ignored.
 
 ### Single-character flag
 
 Single-character flags are characters in a word beginning with an non-quoted
-dash (`-`). Single-character flags are interpreted as {c: True}, where c
-is the character.
+dash (`-`). Single-character flag is interpreted as an implicit object {c: True},
+where c is the character.
 
 ### String flag
 
 A string flag is a string in a word beginning with an non-quoted double-dash
-(`--`). String flag is interpreted as {s: True}, where s is the string.
+(`--`). String flag is interpreted as an implicit object {s: True}, where s is
+the string.
 
 License
 -------
