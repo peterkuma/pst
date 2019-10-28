@@ -197,13 +197,22 @@ Usage
 
 ### Command line
 
+#### pst
+
 ```sh
 pst <pst>...
 ```
 
-where `<pst>` are PST-formatted words.
+Convert PST-formatted arguments to JSON. Prints JSON to the standard output.
 
-Prints JSON on the standard output.
+#### pstf
+
+```
+pstf < input.pst
+```
+
+Convert PST-formatted standard input to JSON. Prints JSON to the standard
+output.
 
 ### Python
 
