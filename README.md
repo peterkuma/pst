@@ -386,6 +386,10 @@ is the string.
 Changelog
 ---------
 
+### 1.1.1 (2019-10-28)
+
+- Add pstf.
+
 ### 1.0.0 (2019-10-28)
 
 - Support for explicit objects.

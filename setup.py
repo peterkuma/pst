@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name='pst-format',
-	version='1.1.0',
+	version='1.1.1',
 	packages=find_packages(),
 	scripts=['pst', 'pstf'],
 	description='Plain Structured Text - data format suitable for I/O & command line',
