@@ -191,8 +191,8 @@ pst.decode_argv(argv, **kwargs)
 ```
 
 Decode PST and split the resulting list into positional and named arguments.
-`argv` is a list of PST, and `kwargs` are keyword arguments passed to
-`pst.decode`. Returns a tuple (`args`, `opts`), where `args` are positional
+`argv` is a list such as `sys.argv` and `kwargs` are keyword arguments passed
+to `pst.decode`. Returns a tuple (`args`, `opts`), where `args` are positional
 arguments and `opts` are named arguments.
 
 Installation
