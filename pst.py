@@ -29,7 +29,7 @@ def readword(s, n, whitespace=None):
 		if s[i] not in whitespace:
 			break
 		i += 1
-	if i == len(s):
+	if i == len(s) and whitespace != []:
 		raise EOFError()
 	escape = 0
 	eos = False
