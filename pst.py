@@ -150,6 +150,8 @@ def decode(s, as_unicode=False):
 				insert(stack, [x])
 			stack.append(['a', x])
 		elif word == b'}' and q == b'0': # Array close.
+			if len(stack) > 1 and stack[-1][0] == 'i':
+				del stack[-1]
 			if len(stack) > 1 and stack[-1][0] == 'a':
 				del stack[-1]
 		elif word == b'{{' and q == b'00': # Explicit object open.
