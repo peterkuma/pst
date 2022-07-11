@@ -7,6 +7,10 @@ WHITESPACE = [b' ', b'\f', b'\n', b'\r', b'\t', b'\v']
 WHITESPACE_ORD = [ord(x) for x in WHITESPACE]
 ESCAPE = {b'a': 7, b'b': 8, b'e': 27, b'f': 12, b'n': 10, b'r': 13, b't': 9, b'v': 11}
 ESCAPE_ORD = {ord(k): v for k, v in ESCAPE.items()}
+ESCAPE2 = {v: k for k, v in ESCAPE.items()}
+RESERVED = [b'{', b'}', b'{{', b'}}', b'true', b'false', b'none']
+DIGITS = [b'0', b'1', b'2', b'3', b'4', b'5', b'6', b'7', b'8', b'9']
+DIGITS_ORD = [ord(x) for x in DIGITS]
 
 def b2u(s):
 	"""Convert string s to unicode."""
@@ -191,6 +195,129 @@ def decode_argv(argv, **kwargs):
 		return [], {}
 	else:
 		return [a], {}
+
+def encode_str(x, escape=False):
+	if type(x) is not bytes:
+		x = bytes(str(x), 'utf-8')
+	s = []
+	special = [ord(b'"')] + WHITESPACE_ORD
+	quote = False
+	if len(x) == 0 or \
+	   x in RESERVED or \
+	   x.endswith(b':') or \
+	   x.startswith(b'-') or (
+		   len(x) > 0 and \
+		   x[0] != ord(b'.') and \
+		   all(c in DIGITS_ORD or c == ord(b'.') for c in x) and \
+		   sum(c == ord(b'.') for c in x) <= 1
+	   ):
+		quote = True
+	for c in bytearray(x):
+		if c in special:
+			quote = True
+		if c in [ord(b'"'), ord(b'\\')]:
+			s += [ord(b'\\')] + [c]
+		elif escape and c in ESCAPE2:
+			s += [ord(b'\\'), ord(ESCAPE2[c])]
+		elif escape and not (c >= 32 and c <= 126): # Is not printable.
+			s += b'\\%03o' % c
+		else:
+			s += [c]
+	s = bytes(s)
+	return b'"%s"' % s if quote else s
+
+def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
+	short_flags=False, long_flags=False, escape=False,
+	explicit=False, first=True, current_indent=0):
+	opts = {
+		'encoder': encoder,
+		'indent': indent,
+		'indent_len': indent_len,
+		'flags': flags,
+		'short_flags': short_flags,
+		'long_flags': long_flags,
+		'escape': escape,
+	}
+	if encoder is not None:
+		x = encoder(x)
+	if indent_len == 'tab':
+		indent_s = [b'\t']*current_indent
+	else:
+		indent_s = [b' ']*(indent_len*current_indent)
+	s = []
+	if type(x) is dict:
+		if len(x) == 0:
+			s += [b'{{', b'}}']
+		else:
+			if explicit:
+				s += [b'{{']
+				if indent: s += [b'\n']
+			sf = False
+			for k, v in x.items():
+				k_s = encode_str(k, escape)
+				v_s = encode(v, explicit=True, first=False,
+					current_indent=(current_indent + 1),
+					**opts)
+				if short_flags or flags and \
+				   len(k_s) == 1 and v == True:
+					if not sf:
+						s += [b'-' + k_s]
+					else:
+						s[-1] += k_s
+					sf = True
+				elif (long_flags or flags) and \
+				   v == True:
+					s += [b'--' + k_s]
+					sf = False
+				else:
+					if indent: s += indent_s
+					s += [k_s + b':'] + v_s
+					if indent: s += [b'\n']
+					sf = False
+
+			if explicit:
+				s += [b'}}']
+	elif type(x) in (list, tuple):
+		if len(x) == 0:
+			s += [b'{', b'}']
+		else:
+			if explicit:
+				s += [b'{']
+			y_prev = None
+			y_next = None
+			for i, y in enumerate(x):
+				y_prev = x[i - 1] if i > 0 else None
+				y_next = x[i + 1] if i + 1 < len(x) else None
+				exp = type(y) in (list, tuple) or \
+				      type(y) is dict and \
+				      (type(y_prev) is dict or type(y_next) is dict)
+				s += encode(y, explicit=exp, first=False, **opts)
+			if explicit:
+				s += [b'}']
+	elif type(x) is bool:
+		s += [b'true' if x else b'false']
+	elif type(x) is int:
+		s += [b'%d' % x]
+	elif type(x) is float:
+		s += [b'%f' % x]
+	elif type(x) in (bytes, str):
+		s += [b'%s' % encode_str(x, escape)]
+	elif x is None:
+		s += [b'none']
+	else:
+		raise ValueError('Unsupported type "%s"' % type(x))
+	if first and s == [b'none']:
+		s = []
+	if not first:
+		return s
+	out = b''
+	for i, word in enumerate(s):
+		word_next = s[i + 1] if i + 1 < len(s) else None
+		out += word \
+			if word in (b'\n', b' ', b'\t') or \
+			word_next in (b'\n', b' ', b'\t') \
+			else word + b' '
+	return out.strip()
 
 if __name__ == '__main__':
 	import json

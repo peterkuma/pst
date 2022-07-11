@@ -257,6 +257,25 @@ Decode PST and split the resulting list into positional and named arguments.
 to `pst.decode`. Returns a tuple (`args`, `opts`), where `args` are positional
 arguments and `opts` are named arguments.
 
+#### encode
+
+```python
+pst.encode(x, encoder=None, indent=False, indent_len=2, flags=False, short_flags=False, long_flags=False, escape=False)
+```
+
+Encode Python structure `x` consisting of list, tuple, dict, byte, str, int and
+float as PST (either as scalars or nested). Returns bytes. `encoder` is a
+user-defined function to transform individual elements of the structure to one
+of the above types before they are read by the encoder. If `indent` is true,
+output indentation is applied. `indent_len` is the number of space characters
+used for indentation or `tab` for indentation with the tab character. If
+`flags` is true, key-value pairs with a value of true are encoded as flags. If
+`short_flags` is true, key-value pairs with a value of true and
+single-character key are encoded as single-character flags. If `long_flags` is
+true, key-value pairs with a value of true and multiple-character key are
+encoded as string flags. If `escape` is true, non-printable ASCII characters in
+strings are encoded as escape sequences.
+
 Installation
 ------------
 
