@@ -260,7 +260,7 @@ arguments and `opts` are named arguments.
 #### encode
 
 ```python
-pst.encode(x, encoder=None, indent=False, indent_len=2, flags=False, short_flags=False, long_flags=False, escape=False)
+pst.encode(x, encoder=None, indent=False, indent_len='tab', flags=False, short_flags=False, long_flags=False, escape=False)
 ```
 
 Encode Python structure `x` consisting of list, tuple, dict, byte, str, int and

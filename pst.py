@@ -226,9 +226,9 @@ def encode_str(x, escape=False):
 	s = bytes(s)
 	return b'"%s"' % s if quote else s
 
-def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
+def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 	short_flags=False, long_flags=False, escape=False,
-	explicit=False, first=True, current_indent=0):
+	explicit=False, first=True, cur_indent=0):
 	opts = {
 		'encoder': encoder,
 		'indent': indent,
@@ -240,10 +240,11 @@ def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
 	}
 	if encoder is not None:
 		x = encoder(x)
-	if indent_len == 'tab':
-		indent_s = [b'\t']*current_indent
-	else:
-		indent_s = [b' ']*(indent_len*current_indent)
+	def indent_for(n):
+		if indent_len == 'tab':
+			return [b'\t']*n
+		else:
+			return [b' ']*(indent_len*n)
 	s = []
 	if type(x) is dict:
 		if len(x) == 0:
@@ -252,11 +253,14 @@ def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
 			if explicit:
 				s += [b'{{']
 				if indent: s += [b'\n']
+				new_indent = (cur_indent + 1)
+			else:
+				new_indent = cur_indent
 			sf = False
 			for k, v in x.items():
 				k_s = encode_str(k, escape)
 				v_s = encode(v, explicit=True, first=False,
-					current_indent=(current_indent + 1),
+					cur_indent=new_indent,
 					**opts)
 				if short_flags or flags and \
 				   len(k_s) == 1 and v == True:
@@ -270,12 +274,15 @@ def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
 					s += [b'--' + k_s]
 					sf = False
 				else:
-					if indent: s += indent_s
+					if indent:
+						s += indent_for(new_indent)
 					s += [k_s + b':'] + v_s
-					if indent: s += [b'\n']
+					if indent and explicit: s += [b'\n']
 					sf = False
 
 			if explicit:
+				if indent:
+					s += indent_for(cur_indent)
 				s += [b'}}']
 	elif type(x) in (list, tuple):
 		if len(x) == 0:
@@ -291,7 +298,8 @@ def encode(x, encoder=None, indent=False, indent_len=2, flags=False,
 				exp = type(y) in (list, tuple) or \
 				      type(y) is dict and \
 				      (type(y_prev) is dict or type(y_next) is dict)
-				s += encode(y, explicit=exp, first=False, **opts)
+				s += encode(y, explicit=exp, first=False,
+					cur_indent=cur_indent, **opts)
 			if explicit:
 				s += [b'}']
 	elif type(x) is bool:
