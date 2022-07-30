@@ -421,9 +421,16 @@ is the string.
 Changelog
 ---------
 
+# 1.2.0 (2022-07-30)
+
+- Added encode function.
+- Fixed parsing of empty strings.
+- Fixed closing of implicit object inside list.
+- Improved documentation.
+
 ### 1.1.1 (2019-10-28)
 
-- Add pstf.
+- Added pstf.
 
 ### 1.0.0 (2019-10-28)
 
