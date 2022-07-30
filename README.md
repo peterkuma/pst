@@ -421,7 +421,7 @@ is the string.
 Changelog
 ---------
 
-# 1.2.0 (2022-07-30)
+### 1.2.0 (2022-07-30)
 
 - Added encode function.
 - Fixed parsing of empty strings.
