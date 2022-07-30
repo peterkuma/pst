@@ -284,6 +284,7 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 				if indent:
 					s += indent_for(cur_indent)
 				s += [b'}}']
+				if indent: s += [b'\n']
 	elif type(x) in (list, tuple):
 		if len(x) == 0:
 			s += [b'{', b'}']
