@@ -11,7 +11,7 @@ argument formatting, standard input/output and configuration file
 formatting. PST is smilar to YAML, but supporing one-line expressions
 (indentation does not matter).
 
-Implementations of PST as a command-line program and a Python 2.7/3 function
+Implementations of PST as a command-line program and a Python 3 function
 are available.
 
 Complex example
@@ -134,7 +134,7 @@ Examples
 
 ```
 # Empty
-PST: 
+PST:
 JSON: null
 
 # Single string
@@ -279,19 +279,23 @@ strings are encoded as escape sequences.
 Installation
 ------------
 
-The installation requires Python 2.7 or Python 3.
+The installation requires Python 3.
 
 To install in system directories:
 
 ```sh
+# To install from PyPI:
 pip3 install pst-format
-# or from the archive directory:
-python3 setup.py install
+
+# Or, to install from this repository:
+pip3 install .
+
+# Note: On some Python distibutions pip3 and python3 are only available as
+# "pip" and "python", respectively.
 ```
 
-Append `--user` to install in user directories
-(make sure `~/.local/bin` is in the `PATH` environmental variable).
-Replace `pip3` with `pip` or `python3` with `python` to install with Python 2.
+If installed in user's home directory, make sure `~/.local/bin` is in the
+`PATH` environment variable.
 
 Shell compatibility
 -------------------
@@ -427,6 +431,7 @@ Changelog
 - Fixed parsing of empty strings.
 - Fixed closing of implicit object inside list.
 - Improved documentation.
+- Dropped support for Python 2.
 
 ### 1.1.1 (2019-10-28)
 
