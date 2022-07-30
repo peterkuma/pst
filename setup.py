@@ -7,7 +7,7 @@ setup(
 	scripts=['pst', 'pstf'],
 	description='Plain Structured Text - data format suitable for I/O & command line',
 	author='Peter Kuma',
-	author_email='peter.kuma@fastmail.com',
+	author_email='peter@peterkuma.net',
 	py_modules=['pst'],
 	license="Public Domain",
 	url='https://github.com/peterkuma/pst',
