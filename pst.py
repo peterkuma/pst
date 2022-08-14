@@ -251,6 +251,7 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 	if type(x) is dict:
 		if len(x) == 0:
 			s += [b'{{', b'}}']
+			if indent: s += [b'\n']
 		else:
 			if explicit:
 				s += [b'{{']
@@ -281,7 +282,6 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 					s += [k_s + b':'] + v_s
 					if indent and explicit: s += [b'\n']
 					sf = False
-
 			if explicit:
 				if indent:
 					s += indent_for(cur_indent)
