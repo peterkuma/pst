@@ -240,8 +240,8 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 		'long_flags': long_flags,
 		'escape': escape,
 	}
-	if encoder is not None:
-		x = encoder(x)
+	encoder = (lambda y: y) if encoder is None else encoder
+	x = encoder(x)
 	def indent_for(n):
 		if indent_len == 'tab':
 			return [b'\t']*n
@@ -261,6 +261,7 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 				new_indent = cur_indent
 			sf = False
 			for k, v in x.items():
+				v = encoder(v)
 				k_s = encode_str(k, escape)
 				v_s = encode(v, explicit=True, first=False,
 					cur_indent=new_indent,
@@ -298,6 +299,9 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 			for i, y in enumerate(x):
 				y_prev = x[i - 1] if i > 0 else None
 				y_next = x[i + 1] if i + 1 < len(x) else None
+				y = encoder(y)
+				y_prev = encoder(y_prev)
+				y_next = encoder(y_next)
 				exp = type(y) in (list, tuple) or \
 				      type(y) is dict and \
 				      (type(y_prev) is dict or type(y_next) is dict)
