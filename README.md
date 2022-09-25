@@ -242,9 +242,10 @@ import pst
 pst.decode(s, as_unicode=False)
 ```
 
-Decode PST. `s` is PST (binary string) or a list
-of PST, and `as_unicode` (bool) indicates
-whether to convert binary strings in output to unicode.
+Decode PST. `s` is PST (binary string) or a list of PST. If `as_unicode` (bool)
+is `True`, convert strings to Unicode on output by assuming the UTF-8 encoding.
+Invalid UTF-8 bytes are encoded using the "surrogateescape" encoding in the
+U+DCxx Unicode range.
 
 #### decode_argv
 

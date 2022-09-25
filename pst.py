@@ -14,13 +14,6 @@ RESERVED = [b'{', b'}', b'{{', b'}}', b'true', b'false', b'none']
 DIGITS = [b'0', b'1', b'2', b'3', b'4', b'5', b'6', b'7', b'8', b'9']
 DIGITS_ORD = [ord(x) for x in DIGITS]
 
-def b2u(s):
-	"""Convert string s to unicode."""
-	if sys.version_info[0] >= 3:
-		return ''.join([chr(x) for x in s])
-	else:
-		return u''.join([unichr(ord(x)) for x in s])
-
 def readword(s, n, whitespace=None):
 	"""Read a word from string s, starting at position n. whitespace
 	is a list of whitespace characters (WHITESPACE if None). Returns a tuple
@@ -109,7 +102,8 @@ def insert(stack, x):
 
 def decode(s, as_unicode=False):
 	if as_unicode:
-		u = lambda x: b2u(x) if type(x) is bytes else x
+		u = lambda x: x.decode('utf-8', 'surrogateescape') \
+			if type(x) is bytes else x
 	else:
 		u = lambda x: x
 	sb = [bytearray(x) for x in s] \
@@ -336,8 +330,6 @@ def encode(x, encoder=None, indent=False, indent_len='tab', flags=False,
 
 if __name__ == '__main__':
 	import json
-	if sys.version_info[0] >= 3:
-		args = [os.fsencode(y) for y in sys.argv[1:]]
-	else:
-		args = sys.argv[1:]
-	print(json.dumps(decode(args, True), ensure_ascii=False))
+	args = [os.fsencode(y) for y in sys.argv[1:]]
+	s = json.dumps(pst.decode(args, True), ensure_ascii=False)
+	sys.stdout.buffer.write(s.encode('utf-8', 'surrogateescape') + b'\n')
