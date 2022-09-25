@@ -194,7 +194,7 @@ def decode_argv(argv, **kwargs):
 
 def encode_str(x, escape=False):
 	if type(x) is not bytes:
-		x = bytes(str(x), 'utf-8')
+		x = str(x).encode('utf-8', 'surrogateescape')
 	s = []
 	special = [ord(b'"')] + WHITESPACE_ORD
 	quote = False
