@@ -426,6 +426,13 @@ is the string.
 Changelog
 ---------
 
+### 1.2.1 (2022-10-12)
+
+- Fixed Unicode encoding.
+- Fixed indentation of empty objects.
+- Fixed application of encoder.
+- Dropped support for Python 2.7.
+
 ### 1.2.0 (2022-07-30)
 
 - Added encode function.
