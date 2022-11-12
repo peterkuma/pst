@@ -250,13 +250,15 @@ U+DCxx Unicode range.
 #### decode_argv
 
 ```python
-pst.decode_argv(argv, **kwargs)
+pst.decode_argv(argv, delim=False, **kwargs)
 ```
 
 Decode PST and split the resulting list into positional and named arguments.
 `argv` is a list such as `sys.argv` and `kwargs` are keyword arguments passed
 to `pst.decode`. Returns a tuple (`args`, `opts`), where `args` are positional
-arguments and `opts` are named arguments.
+arguments and `opts` are named arguments. If `delim` is True, interpret a
+standalone double-dash argument (`--`) in `argv` as an end of options delimiter,
+after which all arguments are treated as literal string arguments.
 
 #### encode
 

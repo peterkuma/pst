@@ -173,18 +173,27 @@ def decode(s, as_unicode=False):
 	elif len(stack[0][1]) == 1: return stack[0][1][0]
 	else: return stack[0][1]
 
-def decode_argv(argv, **kwargs):
-	a = decode([os.fsencode(y) for y in argv], **kwargs)
-	if type(a) is list:
-		return [x for x in a if type(x) is not dict], \
+def decode_argv(argv, delim=False, **kwargs):
+	argvb = [os.fsencode(y) for y in argv]
+	args = []
+	argvb1 = argvb
+	if delim:
+		try:
+			i = argvb.index(b'--')
+			argvb1 = argvb[:i]
+			args = argvb[(i+1):]
+		except ValueError: pass
+	a = decode(argvb1, **kwargs)
+	if len(argvb1) == 0:
+		return args,{}
+	elif type(a) is list:
+		return [x for x in a if type(x) is not dict] + args, \
 			{k: v for x in a if type(x) is dict \
 				for k, v in x.items()}
 	elif type(a) is dict:
-		return [], a
-	elif a is None:
-		return [], {}
+		return args, a
 	else:
-		return [a], {}
+		return [a] + args, {}
 
 def encode_str(x, escape=False):
 	if type(x) is not bytes:
