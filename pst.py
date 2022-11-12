@@ -71,10 +71,7 @@ def readword(s, n, whitespace=None):
 			word += [c]
 			q += b'1' if quote else b'0'
 		i += 1
-	if sys.version_info[0] >= 3:
-		word = bytes(word)
-	else:
-		word = b''.join([chr(x) for x in word])
+	word = bytes(word)
 	if q.find(b'1') == -1:
 		if word == b'true': return True, None, i
 		if word == b'false': return False, None, i
@@ -177,10 +174,7 @@ def decode(s, as_unicode=False):
 	else: return stack[0][1]
 
 def decode_argv(argv, **kwargs):
-	if sys.version_info[0] >= 3:
-		a = decode([os.fsencode(y) for y in argv], **kwargs)
-	else:
-		a = decode(argv, **kwargs)
+	a = decode([os.fsencode(y) for y in argv], **kwargs)
 	if type(a) is list:
 		return [x for x in a if type(x) is not dict], \
 			{k: v for x in a if type(x) is dict \
