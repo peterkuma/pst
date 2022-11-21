@@ -8,7 +8,7 @@ single-character flags (`-x`), and string flags (`--abc`).
 Relative to JSON, PST is simpler, while supporting much of its features.
 PST aims to be human and machine readable, and suitable for command-line
 argument formatting, standard input/output and configuration file
-formatting. PST is smilar to YAML, but supporing one-line expressions
+formatting. PST is similar to YAML, but supporting one-line expressions
 (indentation does not matter).
 
 Implementations of PST as a command-line program and a Python 3 function
@@ -100,7 +100,7 @@ such as strings, integers, floating-point numbers or arbitrarily nested complex
 types such as arrays (list) and objects (dict).
 
 Strings do not need to be
-quoted unless they contain whitespace, special characters which could be
+quoted unless they contain white space, special characters which could be
 interpreted as a number or bracket. Words composed of digits are implicitly
 converted to numbers unless quoted.
 
@@ -111,7 +111,7 @@ Unlike implicit objects, it is possible to use explicit objects as the value of
 a key-value pair. Flags beginning with a dash and double dash are converted
 to key-value pairs.
 
-Any amount of whitespace or indentation is equivalent to a single space.
+Any amount of white space or indentation is equivalent to a single space.
 Separation between words, brackets, special characters such as `:` in the key of
 a key-value pair matters.
 
@@ -124,7 +124,7 @@ command-line argument passing. For example, special characters which would
 clash with other uses are not used: `(`, `)` have special interpretation
 in Bash, `[`, `]` are commonly used in documentation of command-line programs
 to denote optional arguments. Implicit objects make it easy to denote named
-command-line arguments. Flags ensure established sytax can be used to express
+command-line arguments. Flags ensure established syntax can be used to express
 command-line arguments. Arrays and objects enable complex
 command-line arguments. No need for quoting common strings and no commas make
 it easier to write PST than JSON.
@@ -323,23 +323,23 @@ Syntax
 
 ### PST
 
-PST is a sequence of words separated by whitespace, encoded in 8-bit ASCII.
+PST is a sequence of words separated by white space, encoded in 8-bit ASCII.
 
-### Whitespace characters
+### White space characters
 
-Whitespace characters are space (` `), form-feed (`\f`), newline (`\n`),
+White space characters are space (` `), form-feed (`\f`), newline (`\n`),
 carriage return (`\r`), horizontal tab (`\t`), and vertical tab (`\v`).
 
-### Whitespace
+### White space
 
-Whitespace is a sequence of whitespace characters.
+White space is a sequence of white space characters.
 
 ### Word
 
-A word is a sequence of non-whitespace characters, and whitespace
+A word is a sequence of non-white space characters, and white space
 characters if they are inside a quoted part. A quoted part of a word is a part
 of a word enclosed in double quotes (`"`). A character inside a word preceded by
-backslash (`\`) is escaped, and is treated literaly (loses its special meaning),
+backslash (`\`) is escaped, and is treated literally (loses its special meaning),
 unless it is one of the ANSI C quotes, in which case it is translated to the
 corresponding 8-bit ASCII character:
 
