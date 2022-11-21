@@ -428,6 +428,11 @@ is the string.
 Changelog
 ---------
 
+### 2.0.0 (2022-11-21)
+
+- Added a double-dash (`--`) delimiter option to decode\_argv and this is now the default (potentially breaks compatibility).
+- Removed obsolete Python 2.7 code.
+
 ### 1.2.1 (2022-10-12)
 
 - Fixed Unicode encoding.
