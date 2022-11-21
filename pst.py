@@ -173,7 +173,7 @@ def decode(s, as_unicode=False):
 	elif len(stack[0][1]) == 1: return stack[0][1][0]
 	else: return stack[0][1]
 
-def decode_argv(argv, delim=False, as_unicode=False, **kwargs):
+def decode_argv(argv, delim=True, as_unicode=False, **kwargs):
 	argvb = [os.fsencode(x) for x in argv]
 	args = []
 	argvb1 = argvb

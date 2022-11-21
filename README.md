@@ -250,7 +250,7 @@ U+DCxx Unicode range.
 #### decode_argv
 
 ```python
-pst.decode_argv(argv, delim=False, **kwargs)
+pst.decode_argv(argv, delim=True, **kwargs)
 ```
 
 Decode PST and split the resulting list into positional and named arguments.
