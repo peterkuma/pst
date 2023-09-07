@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
 	name='pst-format',
 	version='2.0.0',
-	packages=find_packages(),
+	packages=['pst', 'pst.bin'],
 	entry_points={
 		'console_scripts': [
 			'pst = pst.bin.pst:main',
