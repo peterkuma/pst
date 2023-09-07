@@ -10,7 +10,6 @@ setup(
 			'pstf = pst.bin.pstf:main',
 		],
 	},
-	scripts=['pst', 'pstf'],
 	description='Plain Structured Text (PST)',
 	author='Peter Kuma',
 	author_email='peter@peterkuma.net',
