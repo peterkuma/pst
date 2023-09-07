@@ -513,6 +513,10 @@ is the string.
 Changelog
 ---------
 
+### 2.1.0 (2023-09-07)
+
+- Improved installation.
+
 ### 2.0.0 (2022-11-21)
 
 - Added a double-dash (`--`) delimiter option to decode\_argv and this is now the default (potentially breaks compatibility).

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name='pst-format',
-	version='2.0.0',
+	version='2.1.0',
 	packages=['pst', 'pst.bin'],
 	entry_points={
 		'console_scripts': [
