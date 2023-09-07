@@ -211,7 +211,7 @@ JSON: {"ab": true}
 Usage
 -----
 
-### Command line
+### Command line interface
 
 #### pst
 
@@ -230,7 +230,7 @@ pstf < input.pst
 Convert PST-formatted standard input to JSON. Prints JSON to the standard
 output.
 
-### Python
+### Python interface
 
 ```python
 import pst
@@ -282,23 +282,108 @@ strings are encoded as escape sequences.
 Installation
 ------------
 
-The installation requires Python 3.
+### Linux
 
-To install in system directories:
+1. Install the required system packages. On Debian-derived distributions
+   (Ubuntu, Devuan, ...):
+
+   ```sh
+   apt install python3-full python3-pip pipx
+   ```
+
+   On Fedora:
+
+   ```sh
+   sudo yum install python3 python3-pip pipx
+   ```
+
+2. Install PST. If you indend to only use the command-line interface, you can
+   install PST with pipx:
+
+   ```sh
+   pipx install pst-format
+   ```
+
+   You might have to add `$HOME/.local/bin` to the PATH environment variable
+   if not present already in order to access the pst and pstf commands. This
+   can be done with `pipx ensurepath`.
+
+   If you indend to use the Python interface, you can install in the home
+   directory with pip3:
+
+   ```sh
+   pip3 install pst-format
+   ```
+
+   Replace pip3 with pip if pip3 is not available. Add `--break-system-packages`
+   if your distribution does not allow installing into the home directory but
+   you want to anyway.
+
+   Alternatively, install into a Python virtual environment with:
+
+   ```sh
+   python3 -m venv venv
+   . venv/bin/activate
+   pip3 install pst-format
+   ```
+
+   You can then use the PST Python interface from within the virtual
+   environment. Deactivate the environment with `deactivate`.
+
+You should now be able to run the commands `pst` and `pstf`.
+
+### Windows
+
+1. Install [Python](https://www.python.org/). In the installer, tick `Add
+   python.exe to PATH`.
+
+2. Open the Command Prompt from the Start menu. Install PST with:
+
+    ```sh
+	pip3 install pst-format
+	```
+
+You should now be able to run the commands `pst` and `pstf`.
+
+### macOS
+
+**Important:** On macOS the pst command should be used with the command line
+shell bash, not the default zsh, which is not compatible with the argument
+syntax.
+
+Open the Terminal. Install PST with:
 
 ```sh
-# To install from PyPI:
-pip3 install pst-format
-
-# Or, to install from this repository:
-pip3 install .
-
-# Note: On some Python distibutions pip3 and python3 are only available as
-# "pip" and "python", respectively.
+python3 -m pip install pst-format
 ```
 
-If installed in user's home directory, make sure `~/.local/bin` is in the
-`PATH` environment variable.
+Make sure that `/Users/<user>/Library/Python/<version>/bin` is included in the
+`PATH` environment variable if not already, where `<user>` is your system
+user name and `<version>` is the Python version. This path should be printed
+by the above command. This can be done by adding this line to the file
+`.zprofile` in your home directory and restart the Terminal:
+
+```sh
+PATH="$PATH:/Users/<user>/Library/Python/<version>/bin"
+```
+
+You should now be able to run the commands `pst` and `pstf`.
+
+### Uninstallation
+
+To uninstall if installed with pipx:
+
+```sh
+pipx uninstall pst-format
+```
+
+To uninstall if installed with pip3 or pip:
+
+```sh
+pip3 uninstall pst-format
+```
+
+Replace pip3 with pip if pip3 is not available.
 
 Shell compatibility
 -------------------
